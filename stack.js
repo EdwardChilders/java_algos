@@ -124,13 +124,34 @@ let a = new Node(1);
 let b = new Node(2);
 let c = new Node(3);
 let newStack = new slStack();
-newStack.push(a);
-newStack.push(b);
 newStack.push(c);
+newStack.push(b);
+newStack.push(a);
 console.log(newStack.peek());
 console.log(newStack.getLength());
-newStack.pop();
+// newStack.pop();
 
 console.log(countStack(newStack));
 
 
+// using only one extra stack for storage, check if a given stack is sorted
+// return the stack back to it's original order when you are done
+// assume node.data are integers
+function isStackSorted(stack) {
+  let sorted = true;
+  let newStack = new slStack();
+  while(stack.top!=null){
+    newStack.push(stack.pop());
+    console.log("stack 1: " + stack.peek())
+    console.log("stack 2: " + newStack.peek())
+    if(stack.peek()<newStack.peek() && stack.top != null){
+      sorted = false;
+    }
+  }
+  while (newStack.top!=null){
+    stack.push(newStack.pop());
+  }
+  return sorted
+}
+
+console.log(isStackSorted(newStack));
